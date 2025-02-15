@@ -17,20 +17,54 @@ class RoleCheck
      * @param  string[]  ...$roles
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    
+
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        
-        if (Auth::check()) {
-            
-            $userRole = Auth::user()->role->role;
-            
-            if (in_array($userRole, $roles)) {
-                return $next($request);
-            }
+        $user = Auth::guard('sanctum')->user();
+    
+        if (!$user) {
+            return response()->json(['message' => 'Unauthorized'], Response::HTTP_UNAUTHORIZED);
         }
-
-        Auth::logout();
-        return redirect()->route('login')->with('status', 'You are not authorized to access this page.');
+    
+        if (!in_array($user->role->role, $roles)) {
+            return response()->json(['message' => 'Forbidden'], Response::HTTP_FORBIDDEN);
+        }
+    
+        return $next($request);
     }
+    
+    
+    // public function handle(Request $request, Closure $next, ...$roles): Response
+    // {
+    //     if (!Auth::guard('sanctum')->check()) {
+    //         return response()->json(['message' => 'Forbidden'], Response::HTTP_FORBIDDEN);
+    //     }
+    
+    //     $user = Auth::guard('sanctum')->user();
+    //     $userRole = $user->role->role;
+    
+    //     if (in_array($userRole, $roles)) {
+    //         return $next($request);
+    //     }
+    
+    //     return response()->json(['message' => 'Forbidden'], Response::HTTP_FORBIDDEN);
+    // }
+     
+
+    // public function handle(Request $request, Closure $next, ...$roles): Response
+    // {
+        
+    //     if (Auth::check()) {
+            
+    //         $userRole = Auth::user()->role->role;
+            
+    //         if (in_array($userRole, $roles)) {
+    //             return $next($request);
+    //         }
+    //     }
+    
+    //     Auth::logout();
+    //     return redirect()->route('login')->with('status', 'You are not authorized to access this page.');
+    // }
 }
+
