@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Rute untuk student
     Route::middleware('role:student')->group(function () {
-        Route::get('/student/home', function () {
+        Route::get('/student/dashboard', function () {
             return response()->json(['message' => 'Welcome Student']);
         });
     });
