@@ -18,6 +18,7 @@ Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
 
 // Middleware untuk proteksi API menggunakan Sanctum
 Route::middleware('auth:sanctum')->group(function () {
+
     // Rute untuk admin
     Route::middleware('role:admin')->group(function () {
         Route::get('/admin/dashboard', function () {
@@ -44,4 +45,5 @@ Route::middleware('auth:sanctum')->group(function () {
         $request->user()->tokens()->delete();
         return response()->json(['message' => 'Logged out successfully']);
     });
+    
 });

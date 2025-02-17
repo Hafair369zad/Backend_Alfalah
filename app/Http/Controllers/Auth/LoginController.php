@@ -11,6 +11,8 @@ use App\Http\Requests\User\LoginRequest;
 
 class LoginController extends Controller
 {
+
+    // API
     public function apiLogin(Request $request)
     {
         $user = User::where('email', $request->email)->first();
@@ -28,15 +30,7 @@ class LoginController extends Controller
         ]);
     }
 
-
-
-
-    // public function index()
-    // {
-    //     return view('auth.login');
-    // }
-
-
+    // Web
     // public function login(LoginRequest $request)
     // {
     //     $validatedData = $request->validated();
@@ -69,49 +63,33 @@ class LoginController extends Controller
     // }
 
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //
